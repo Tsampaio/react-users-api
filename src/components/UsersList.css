@@ -1,0 +1,30 @@
+.wrapper {
+	margin: 10px;
+	padding: 10px;
+	background-color: antiquewhite;
+}
+
+.list {
+	padding: 10px;
+}
+
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.entry {
+	background-color: antiquewhite;
+	display: flex;
+	margin: 10px 0px;
+	padding: 10px 0px;
+	justify-content: space-between;
+}
+
+.name {
+	flex-basis: 50%;
+}
+
+.city {
+	flex-basis: 50%;
+}
