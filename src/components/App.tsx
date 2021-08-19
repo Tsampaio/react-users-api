@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import UsersList from './UsersList';
 import User from './User';
+import SearchUsers from './SearchUsers';
+import Navbar from './Navbar';
 
-// Errors
-export interface UsersInterface {
+// Not sure what first is and company {} also not clear
+export interface UserInterface {
 	[key: string]: any;
 	company: {};
 	email: string;
@@ -17,8 +19,7 @@ export interface UsersInterface {
 
 const App = (): JSX.Element => {
 	// in this notation the users array could still be empty
-	// Errors
-	const [users, setUsers] = useState<any[]>([]);
+	const [users, setUsers] = useState<any>([]);
 
 	useEffect(() => {
 		const url = 'https://jsonplaceholder.typicode.com/users';
@@ -26,20 +27,24 @@ const App = (): JSX.Element => {
 		fetch(url)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setUsers(data);
 			});
 	}, []);
 
 	return (
 		<BrowserRouter>
+			<Navbar />
 			<Switch>
+				<Route exact path={`/`}>
+					<UsersList users={users} />
+				</Route>
+
 				<Route exact path={`/user/:userId`}>
 					<User users={users} />
 				</Route>
 
-				<Route exact path={`/users`}>
-					<UsersList users={users} />
+				<Route exact path={`/search`}>
+					<SearchUsers users={users} setUsers={setUsers} />
 				</Route>
 			</Switch>
 		</BrowserRouter>

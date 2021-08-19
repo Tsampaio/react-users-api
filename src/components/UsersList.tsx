@@ -1,8 +1,13 @@
 import './UsersList.css';
 import { Link } from 'react-router-dom';
+import { UserInterface } from './App';
+
+interface UsersList {
+	users: UserInterface[];
+}
 
 // TYpescript does not take Users interface here
-const UsersList = ({ users }: any): JSX.Element => {
+const UsersList = ({ users }: UsersList): JSX.Element => {
 	const showUsers = users.map((item: any, index: number) => {
 		return (
 			<div className="entry" key={index}>
