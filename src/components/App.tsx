@@ -5,10 +5,12 @@ import User from './User';
 import SearchUsers from './SearchUsers';
 import Navbar from './Navbar';
 
-// Not sure what first is and company {} also not clear
 export interface UserInterface {
+	// obj with key string, unknown what is in
 	[key: string]: any;
-	company: {};
+	// Record says it's obj -> key is either address, name or some other string
+	// values after comma -> what we excpect -> string or number
+	company: Record<'address' | 'name' | string, string | number>;
 	email: string;
 	id: number;
 	name: string;
@@ -17,9 +19,12 @@ export interface UserInterface {
 	website: string;
 }
 
-const App = (): JSX.Element => {
+// React.FC is used to define what props we insert from parent to child
+// here App is just parent, we therefore defined it as empty {}
+const App: React.FC<{}> = () => {
 	// in this notation the users array could still be empty
-	const [users, setUsers] = useState<any>([]);
+	const [users, setUsers] = useState<UserInterface[]>([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const url = 'https://jsonplaceholder.typicode.com/users';
@@ -28,6 +33,7 @@ const App = (): JSX.Element => {
 			.then((res) => res.json())
 			.then((data) => {
 				setUsers(data);
+				setLoading(false);
 			});
 	}, []);
 
@@ -44,7 +50,7 @@ const App = (): JSX.Element => {
 				</Route>
 
 				<Route exact path={`/search`}>
-					<SearchUsers users={users} setUsers={setUsers} />
+					<SearchUsers users={users} setUsers={setUsers} loading={loading} />
 				</Route>
 			</Switch>
 		</BrowserRouter>

@@ -3,7 +3,7 @@ import './SearchUsers.css';
 import { UserInterface } from './App';
 import ReactPaginate from 'react-paginate';
 
-const SearchUsers = ({ users, setUsers }: any) => {
+const SearchUsers = ({ users, setUsers, loading }: any) => {
 	// Filtering
 	const [selectedUsers, setSelectedUsers] = useState([]);
 	const [filter, setFilter] = useState<string>('');
@@ -92,7 +92,9 @@ const SearchUsers = ({ users, setUsers }: any) => {
 				</div>
 			</div>
 
-			<div className="displayUsers-wrapper">{displayUsers}</div>
+			<div className="displayUsers-wrapper">
+				{loading ? 'loading...' : displayUsers}
+			</div>
 
 			<div className="pagination-wrapper">
 				<ReactPaginate

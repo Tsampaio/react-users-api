@@ -2,12 +2,13 @@ import './UsersList.css';
 import { Link } from 'react-router-dom';
 import { UserInterface } from './App';
 
-interface UsersList {
+interface UsersProps {
 	users: UserInterface[];
 }
 
-// TYpescript does not take Users interface here
-const UsersList = ({ users }: UsersList): JSX.Element => {
+// FC -> does not need : JSX.Element  -> always returns JSX
+const UsersList: React.FC<UsersProps> = ({ users }) => {
+	// When map funciton, ts already infers the type
 	const showUsers = users.map((item: any, index: number) => {
 		return (
 			<div className="entry" key={index}>
