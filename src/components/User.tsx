@@ -21,7 +21,7 @@ interface UserProps {
 const User: React.FC<UserProps> = ({ users }) => {
 	let { userId }: { userId?: string | number } = useParams();
 
-	const user = users.find((user) => user.id == userId);
+	const user = users.find((user) => user.id === userId);
 
 	if (user) {
 		return (

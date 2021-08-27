@@ -4,10 +4,11 @@ import UsersList from './UsersList';
 import User from './User';
 import SearchUsers from './SearchUsers';
 import Navbar from './Navbar';
+import getApiData from './getApiData';
 
 export interface UserInterface {
 	// obj with key string, unknown what is in
-	[key: string]: any;
+	[key: string]: any
 	// Record says it's obj -> key is either address, name or some other string
 	// values after comma -> what we excpect -> string or number
 	company: Record<'address' | 'name' | string, string | number>;
@@ -26,15 +27,15 @@ const App: React.FC<{}> = () => {
 	const [users, setUsers] = useState<UserInterface[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const url = 'https://jsonplaceholder.typicode.com/users';
+	const updateUsers = async () => {
+		const data = await getApiData();
+		console.log(data);
+		setUsers(data);
+		setLoading(false);
+	}
 
-		fetch(url)
-			.then((res) => res.json())
-			.then((data) => {
-				setUsers(data);
-				setLoading(false);
-			});
+	useEffect(() => {
+		updateUsers()
 	}, []);
 
 	return (
